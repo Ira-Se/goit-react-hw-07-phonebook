@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsReducer';
+
 import { nanoid } from 'nanoid';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -10,6 +10,8 @@ import {
   StyledField,
   StyledButton,
 } from './ContactForm.styled';
+import { selectList } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 
 const AddContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,7 +34,7 @@ const AddContactSchema = Yup.object().shape({
 
 export const ContactForm = ({ onAdd }) => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.list);
+  const contacts = useSelector(selectList);
 
   const handleSubmit = ({ name, number }) => {
     const newContact = {
